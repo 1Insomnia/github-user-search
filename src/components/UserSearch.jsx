@@ -1,28 +1,33 @@
 import { useRef } from 'react'
 import { SearchIcon } from '@primer/octicons-react'
+import fetchUser from '../lib/fetchUser'
 
-export const UserSearch = ({ setSearch }) => {
+const UserSearch = ({ setUser, setFetchError }) => {
   const input = useRef(null)
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
     if (input.current.value.trim() === '') return
-    setSearch(input.current.value)
+    const { data, error } = await fetchUser(input.current.value)
+    if (!error) {
+      setUser(data)
+    }
+    setFetchError(error)
   }
 
   return (
-    <div>
+    <div className="mb-10">
       <form onSubmit={handleSubmit}>
         <label htmlFor="input" className="sr-only">
           Search github user
         </label>
-        <div className="bg-dark-light flex items-center rounded-lg overflow-hidden py-3 px-2">
-          <SearchIcon size="32" />
+        <div className="bg-dark-light flex items-center rounded-lg overflow-hidden py-3 px-2 border border-dark-light focus-within:border-light-light">
+          <SearchIcon size="32" className="text-primary" />
           <input
             type="text"
             className="outline-none block flex-grow w-full bg-dark-light mx-2"
             ref={input}
-            placeholder="Search a user..."
+            placeholder="Search Github username..."
           />
           <button
             type="submit"
@@ -35,3 +40,5 @@ export const UserSearch = ({ setSearch }) => {
     </div>
   )
 }
+
+export default UserSearch

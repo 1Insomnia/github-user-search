@@ -1,17 +1,22 @@
 import { useState } from 'react'
-import { UserSearch } from './components'
+import { UserSearch, SearchResult } from './components'
 
 function App() {
-  const [search, setSearch] = useState('')
+  const [user, setUser] = useState(null)
+  const [fetchError, setFetchError] = useState(null)
 
   return (
-    <div className="text-light bg-dark h-screen">
+    <div className="text-light bg-dark min-h-screen py-5">
       <div className="max-w-3xl mx-auto px-4">
-        <h1 className="text-2xl text-light font-bold tracking-tighter mb-8">
+        <h1 className="text-2xl text-light font-bold tracking-tighter mb-12">
           devfinder
         </h1>
-        <div>{search}</div>
-        <UserSearch setSearch={setSearch} />
+        <UserSearch setUser={setUser} setFetchError={setFetchError} />
+        {fetchError ? (
+          <div>User not found</div>
+        ) : (
+          user && <SearchResult {...user} />
+        )}
       </div>
     </div>
   )

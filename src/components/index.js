@@ -1,3 +1,4 @@
-import { UserSearch } from './UserSearch'
+import UserSearch from './UserSearch.jsx'
+import SearchResult from './SearchResult.jsx'
 
-export { UserSearch }
+export { UserSearch, SearchResult }
