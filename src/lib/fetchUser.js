@@ -17,7 +17,8 @@ const fetchUser = async username => {
         followers: data.followers,
         following: data.following,
         created_at: data.created_at,
-        avatar_url: data.avatar_url
+        avatar_url: data.avatar_url,
+        html_url: data.html_url
       }
     }
   } catch (error) {

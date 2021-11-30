@@ -12,12 +12,13 @@ const SearchResult = ({
   following,
   location,
   blog,
-  avatar_url
+  avatar_url,
+  html_url
 }) => {
   return (
     <div className="p-4 bg-dark-light rounded-lg md:p-8">
       <div className="md:flex md:gap-12">
-        <div className="md:w-1/4">
+        <div className="mb-8 md:w-1/4 md:mb-0">
           <img
             src={avatar_url}
             alt={`Avatar of ${login}`}
@@ -27,9 +28,11 @@ const SearchResult = ({
         <div className="space-y-8 md:w-3/4">
           <div className="">
             <div className="sm:flex sm:items-center sm:justify-between mb-1">
-              <h3 className="text-3xl font-bold tracking-tight">{login}</h3>
+              <h3 className="text-3xl font-bold tracking-tight mb-1">
+                {login}
+              </h3>
               <p className="text-sm">
-                joined {format(parseISO(created_at), 'dd MMMM yyyy')}
+                Joined - {format(parseISO(created_at), 'dd MMMM yyyy')}
               </p>
             </div>
 
@@ -72,26 +75,32 @@ const SearchResult = ({
             </div>
           </div>
           <div className="flex items-center justify-between text-center sm:text-left">
-            <div className="sm:flex sm:items-center">
-              <LocationIcon size={16} className="text-light sm:mr-2" />
-              <p className="text-sm">{location}</p>
-            </div>
-            <div className="sm:flex sm:items-center">
-              <LinkIcon size={16} className="text-light sm:mr-2" />
-              {blog ? (
-                <p className="text-sm">{blog}</p>
-              ) : (
-                "This user doesn't have a blog"
-              )}
-            </div>
-            <div className="sm:flex sm:items-center">
+            {location ? (
+              <div className="sm:flex sm:items-center">
+                <LocationIcon size={16} className="text-light sm:mr-2" />
+                <p className="text-sm">{location}</p>
+              </div>
+            ) : null}
+            {blog ? (
+              <a
+                href={blog}
+                rel="noreferrer"
+                target="_blank"
+                className="block sm:flex sm:items-center"
+              >
+                <LinkIcon size={16} className="text-light sm:mr-2" />
+                <p className="text-sm truncate">{blog}</p>
+              </a>
+            ) : null}
+            <a
+              href={html_url}
+              target="_blank"
+              rel="noreferrer"
+              className="block sm:flex sm:items-center"
+            >
               <MarkGithubIcon size={16} className="text-light sm:mr-2" />
-              {location ? (
-                <p className="text-sm">blog</p>
-              ) : (
-                'No location provided'
-              )}
-            </div>
+              <p className="text-sm capitalize">profile</p>
+            </a>
           </div>
         </div>
       </div>
