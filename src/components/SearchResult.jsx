@@ -5,7 +5,6 @@ import { LocationIcon, LinkIcon, MarkGithubIcon } from '@primer/octicons-react'
 const SearchResult = ({
   login,
   created_at,
-  twitter_url,
   bio,
   public_repos,
   followers,
@@ -13,7 +12,8 @@ const SearchResult = ({
   location,
   blog,
   avatar_url,
-  html_url
+  html_url,
+  twitter_username
 }) => {
   return (
     <div className="p-4 bg-dark-light rounded-lg md:p-8">
@@ -36,9 +36,9 @@ const SearchResult = ({
               </p>
             </div>
 
-            {twitter_url && (
+            {twitter_username && (
               <a
-                href={twitter_url}
+                href={`https://www.twitter.com/${twitter_username}`}
                 target="_blank"
                 rel="noreferrer"
                 className="text-primary text-sm"
@@ -75,13 +75,13 @@ const SearchResult = ({
             </div>
           </div>
           <div className="flex items-center justify-between text-center sm:text-left">
-            {location ? (
+            {location && (
               <div className="sm:flex sm:items-center">
                 <LocationIcon size={16} className="text-light sm:mr-2" />
                 <p className="text-sm">{location}</p>
               </div>
-            ) : null}
-            {blog ? (
+            )}
+            {blog && (
               <a
                 href={blog}
                 rel="noreferrer"
@@ -91,7 +91,7 @@ const SearchResult = ({
                 <LinkIcon size={16} className="text-light sm:mr-2" />
                 <p className="text-sm truncate">{blog}</p>
               </a>
-            ) : null}
+            )}
             <a
               href={html_url}
               target="_blank"
